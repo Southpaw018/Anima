@@ -125,15 +125,41 @@ public class Anima extends JavaPlugin {
 		String cmd = command.getName();
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
-			if (args[0].equalsIgnoreCase("reload")) {
-				if (!p.hasPermission("anima.admin.reload")) {
-					p.sendMessage("[Anima] You do not have permission to use this command.");
+			if (args[0].equalsIgnoreCase("totalxp")) {
+				if (args.length != 2) return false;
+				try {
+					Integer.parseInt(args[2]);
+				} catch (NumberFormatException e) {
+					return false;
+				}
+				p.sendMessage("[Anima] The total XP required for level " + args[2] + " is " + xpForLevel(Integer.valueOf(args[2])) + ".");
+				return true;
+			}
+			if (args[0].equalsIgnoreCase("help")) {
+				//TODO help message
+				return true;
+			}
+			if (args[0].equalsIgnoreCase("admin")) {
+				if (!p.hasPermission("anima.admin")) {
+					p.sendMessage("[Anima] You do not have permissions to use Anima admin commands.");
 					return true;
 				}
-				loadConfig();
-				p.sendMessage("[Anima] Configuration reloaded from file.");
-				//TODO player: calc xp and help
-				//TODO admin: give and take xp and levels
+				if (args[1].equalsIgnoreCase("reload")) {
+					loadConfig();
+					p.sendMessage("[Anima] Configuration reloaded from file.");
+				}
+				if (args[2].equalsIgnoreCase("givexp")) {
+					//TODO implementation
+				}
+				if (args[2].equalsIgnoreCase("takexp")) {
+					//TODO implementation
+				}
+				if (args[2].equalsIgnoreCase("givelevels")) {
+					//TODO implementation
+				}
+				if (args[2].equalsIgnoreCase("takelevels")) {
+					//TODO implementation
+				}
 			}
 		}
 		return false;

@@ -52,10 +52,11 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 
-			if (xp > plugin.maxXP && !player.hasPermission("amina.maxbypass")) {
+			if (xp > plugin.maxXP && !player.hasPermission("anima.maxbypass")) {
 				player.sendMessage("[Anima] You cannot deposit more XP into this sign.");
 				return;
 			}
+			//TODO economy
 			player.giveExp(-1);
 			sign.setLine(2, Float.toString(xp + 1));
 			sign.setLine(3, "Updating...");
@@ -68,6 +69,7 @@ public class AnimaPlayerListener implements Listener {
 			});
 		}
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+			//TODO economy
 			player.giveExp(1);
 			sign.setLine(2, Float.toString(xp - 1));
 			sign.setLine(3, "Updating...");
