@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 
 public class AnimaBlockListener implements Listener {
 	private final Anima plugin;
@@ -19,7 +19,7 @@ public class AnimaBlockListener implements Listener {
 	}
 
 	@EventHandler
-	public void onBlockPlace(BlockPlaceEvent event) {
+	public void onSignChange(SignChangeEvent event) {
 		Block block = event.getBlock();
 
 		if (block.getType() != Material.WALL_SIGN && block.getType() != Material.SIGN_POST) return;
