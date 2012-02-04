@@ -128,7 +128,7 @@ public class Anima extends JavaPlugin {
 			if (args[0].equalsIgnoreCase("totalxp")) {
 				if (args.length != 2) return false;
 				try {
-					Integer.parseInt(args[2]);
+					Integer.parseInt(args[1]);
 				} catch (NumberFormatException e) {
 					return false;
 				}
