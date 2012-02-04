@@ -31,7 +31,7 @@ public class Anima extends JavaPlugin {
 	public static Economy econ = null;
 
 	//Config defaults
-	public int maxLevel = 50;
+	public int maxXP = 4625; //4625 = level 50
 	public boolean versionCheck = true;
 
 	public double depositCost = 0;
@@ -75,7 +75,7 @@ public class Anima extends JavaPlugin {
 			log.warning("[Anima] Your config file is out of date! Delete your config and reload to see the new options. Proceeding using set options from config file and defaults for new options..." );
 		}
 
-		maxLevel = config.getInt("Core.macLevel", maxLevel);
+		maxXP = config.getInt("Core.macLevel", maxXP);
 		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
 
 		depositCost = config.getDouble("Economy.depositCost", depositCost);
@@ -126,14 +126,27 @@ public class Anima extends JavaPlugin {
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
 			if (args[0].equalsIgnoreCase("reload")) {
-				if (!p.hasPermission("anima.")) {
+				if (!p.hasPermission("anima.admin.reload")) {
 					p.sendMessage("[Anima] You do not have permission to use this command.");
 					return true;
 				}
 				loadConfig();
 				p.sendMessage("[Anima] Configuration reloaded from file.");
+				//TODO player: calc xp and help
+				//TODO admin: give and take xp and levels
 			}
 		}
 		return false;
+	}
+
+	//Utility functions
+	public long xpForLevel(int level) {
+		long xp = 0;
+
+		for (int x = 0; x < level; x++) {
+			xp += 7 + Math.floor(x * 3.5);
+		}
+
+		return xp;
 	}
 }

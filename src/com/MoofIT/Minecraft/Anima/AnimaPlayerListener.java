@@ -31,19 +31,32 @@ public class AnimaPlayerListener implements Listener {
 		if (!sign.getLine(0).equalsIgnoreCase("[Anima]")) return;
 
 		Player player = event.getPlayer();
+		if (sign.getLine(3).equalsIgnoreCase("Updating...")) {
+			player.sendMessage("[Anima] This sign is still updating. Please wait a moment.");
+			return;
+		}
+		if (!player.hasPermission("anima.use")) {
+			player.sendMessage("[Anima] You do not have permission to use Anima signs.");
+			return;
+		}
+
 		String name = player.getName();
 		if (name.length() > 15) name = name.substring(0, 15);
 		if (!sign.getLine(1).equals(name)) return;
 
-		float xp = Float.valueOf(sign.getLine(2));
+		int xp = Integer.valueOf(sign.getLine(2));
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (player.getExp() < 1) {
 				player.sendMessage("[Anima] You have no XP to deposit.");
 				return;
 			}
-			//TODO check for max deposit here
-			player.setExp(player.getExp() - 1);
+
+			if (xp > plugin.maxXP && !player.hasPermission("amina.maxbypass")) {
+				player.sendMessage("[Anima] You cannot deposit more XP into this sign.");
+				return;
+			}
+			player.giveExp(-1);
 			sign.setLine(2, Float.toString(xp + 1));
 			sign.setLine(3, "Updating...");
 			
@@ -55,7 +68,7 @@ public class AnimaPlayerListener implements Listener {
 			});
 		}
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			player.setExp(player.getExp() + 1);
+			player.giveExp(1);
 			sign.setLine(2, Float.toString(xp - 1));
 			sign.setLine(3, "Updating...");
 
