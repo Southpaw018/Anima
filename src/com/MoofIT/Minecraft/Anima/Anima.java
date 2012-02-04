@@ -69,7 +69,7 @@ public class Anima extends JavaPlugin {
 		configVer = config.getInt("configVer", configVer);
 		if (configVer == 0) {
 			saveDefaultConfig();
-			log.info("[Anima] Configuration error or no config file found. Downloading default config file...");
+			log.info("[Anima] Configuration error or no config file found. Copying default config file from JAR.");
 		}
 		else if (configVer < configCurrent) {
 			log.warning("[Anima] Your config file is out of date! Delete your config and reload to see the new options. Proceeding using set options from config file and defaults for new options..." );
