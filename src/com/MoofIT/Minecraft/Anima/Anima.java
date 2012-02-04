@@ -7,12 +7,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -25,8 +28,14 @@ public class Anima extends JavaPlugin {
 	public PluginDescriptionFile pdfFile;
 	private FileConfiguration config;
 
+	public static Economy econ = null;
+
 	//Config defaults
+	public int maxLevel = 50;
 	public boolean versionCheck = true;
+
+	public double depositCost = 0;
+	public double withdrawCost = 0;
 
 	//Config versioning
 	private int configVer = 0;
@@ -38,6 +47,7 @@ public class Anima extends JavaPlugin {
 		pdfFile = getDescription();
 
 		loadConfig();
+		setupEconomy();
 		if (versionCheck) versionCheck();
 
 		pm.registerEvents(playerListener, this);
@@ -65,7 +75,20 @@ public class Anima extends JavaPlugin {
 			log.warning("[Anima] Your config file is out of date! Delete your config and reload to see the new options. Proceeding using set options from config file and defaults for new options..." );
 		}
 
-		//load vars
+		maxLevel = config.getInt("Core.macLevel", maxLevel);
+		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
+
+		depositCost = config.getDouble("Economy.depositCost", depositCost);
+		withdrawCost = config.getDouble("Economy.withdrawCost", withdrawCost);
+	}
+
+	 private boolean setupEconomy() {
+		if (getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+		econ = rsp.getProvider();
+		return econ != null;
 	}
 
 	public void versionCheck() {
@@ -100,7 +123,16 @@ public class Anima extends JavaPlugin {
 		if (!(sender instanceof Player)) return false;
 		Player p = (Player)sender;
 		String cmd = command.getName();
-		if (cmd.equalsIgnoreCase("cenlist")) {
+		if (cmd.equalsIgnoreCase("anima")) {
+			if (args.length < 1) return false;
+			if (args[0].equalsIgnoreCase("reload")) {
+				if (!p.hasPermission("anima.")) {
+					p.sendMessage("[Anima] You do not have permission to use this command.");
+					return true;
+				}
+				loadConfig();
+				p.sendMessage("[Anima] Configuration reloaded from file.");
+			}
 		}
 		return false;
 	}

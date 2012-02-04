@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 public class AnimaBlockListener implements Listener {
 	private Anima plugin;
@@ -15,12 +16,23 @@ public class AnimaBlockListener implements Listener {
 		this.plugin = instance;
 	}
 
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent event) {
+		Block block = event.getBlock();
+
+		if (block.getType() != Material.WALL_SIGN && block.getType() != Material.SIGN_POST) return;
+		//are we an anima sign?
+		//clear lines 2-4
+		//set line 2 to player name
+	}
+	
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onBlockBreak(BlockBreakEvent event) {
 		Block block = event.getBlock();
 
 		if (block.getType() != Material.WALL_SIGN && block.getType() != Material.SIGN_POST) return;
-
-		//sign destruction check
+		//are we an anima sign?
+		//are we the player who owns this sign or do we have permission to destroy it?
+		//break it and give player XP
 	}
 }
