@@ -1,0 +1,53 @@
+=============
+ Description
+=============
+Anima - XP banking using signs!
+Anima. n. The ancient Greek concept of vitalism, similar to the soul.
+
+Download (Direct JAR): http://www.moofit.com/minecraft/Anima.jar
+Source: https://github.com/Southpaw018/Anima
+
+=============
+ Features
+=============
+Players can place a sign with the first line [Anima] to create a personal XP bank
+Punch (left click) the bank to withdraw, right click the bank to deposit
+Break the sign to take all of its XP
+Economy supported
+Utility command to calculate XP total for levels
+Admin commands to give XP, take XP, give levels, and take levels
+
+=============
+ Permissions
+=============
+anima.use: This player/group can use Anima signs. Default everyone.
+anima.create: This player/group can create Anima signs. Default everyone.
+anima.maxbypass: This player/group can bypass the XP storage limit. Default no one.
+anima.admin: Admins can physically destroy others' Anima signs and use the admin commands. Default op.
+
+=============
+ Commands
+=============
+User commands:
+  /anima totalxp <level>
+    Displays the total numerical XP required for the given level.
+
+Admin commands:
+  /anima admin [give|take|set] [xp|levels] <player> <#>
+    Allows admins to give, take, or set player xp or levels. 
+
+=============
+ Config
+=============
+See default config file for options and instructions.
+
+=============
+ Changes
+=============
+[Version 1.0]
+  - Initial public release
+
+=============
+ Config file changes
+=============
+1: Initial public release

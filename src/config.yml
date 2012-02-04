@@ -1,0 +1,12 @@
+Core:
+   #The maximum amount of XP a player can store in any one sign. 4625 is level 50.
+    maxXP: 4625
+    #Check for new versions on startup
+    versionCheck: true
+
+Economy:
+    #The cost to deposit or withdraw 1 XP. 0 to disable, decimals supported.
+    depositCost: 0
+    withdrawCost: 0
+
+configVer = 0;

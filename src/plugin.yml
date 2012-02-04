@@ -1,0 +1,27 @@
+name: Anima
+main: com.MoofIT.Minecraft.Anima.Anima
+version: 1.0
+description: XP banking using signs! 
+author: Southpaw018
+website: http://www.moofit.com
+
+commands:
+  anima:
+    description: Main command for Anima
+    usage: /<command> <args>
+    aliases: [ani]
+
+permissions:
+  anima.use:
+    description: This player/group can use Anima signs.
+    default: true
+  anima.create:
+    description: This player/group can create Anima signs.
+    default: true
+  anima.maxbypass:
+    description: This player/group can bypass the XP storage limit.
+    default: false
+
+  anima.admin:
+    description: Admins can physically destroy others' Anima signs and use the admin commands.
+    default: op
