@@ -148,16 +148,15 @@ public class Anima extends JavaPlugin {
 					loadConfig();
 					p.sendMessage("[Anima] Configuration reloaded from file.");
 				}
-				if (args[2].equalsIgnoreCase("givexp")) {
+				if (args[1].equalsIgnoreCase("give")) {
+					//args[2]: xp, levels
+					//args[3]: player
+					//args[4]: #
+				}
+				if (args[1].equalsIgnoreCase("take")) {
 					//TODO implementation
 				}
-				if (args[2].equalsIgnoreCase("takexp")) {
-					//TODO implementation
-				}
-				if (args[2].equalsIgnoreCase("givelevels")) {
-					//TODO implementation
-				}
-				if (args[2].equalsIgnoreCase("takelevels")) {
+				if (args[1].equalsIgnoreCase("set")) {
 					//TODO implementation
 				}
 			}
