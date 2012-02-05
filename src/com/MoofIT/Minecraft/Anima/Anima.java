@@ -131,7 +131,7 @@ public class Anima extends JavaPlugin {
 				} catch (NumberFormatException e) {
 					return false;
 				}
-				p.sendMessage("[Anima] The total XP required for level " + args[2] + " is " + xpForLevel(Integer.valueOf(args[2])) + ".");
+				p.sendMessage("[Anima] The total XP required for level " + args[2] + " is " + xpTotal(Integer.valueOf(args[2])) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
@@ -168,13 +168,27 @@ public class Anima extends JavaPlugin {
 	}
 
 	//Utility functions
-	public long xpForLevel(int level) {
-		long xp = 0;
+	public int xpTotal(int level) {
+		int xp = 0;
 
 		for (int x = 0; x < level; x++) {
 			xp += 7 + Math.floor(x * 3.5);
 		}
 
+		return xp;
+	}
+	public double xpNext(int level) {
+		return 7 + Math.floor(level * 3.5);
+	}
+	public int totalPlayerXP(Player player) {
+		int xp = 0;
+
+		int curLevel = player.getLevel();
+		float curProgress = player.getExp();
+
+		xp += xpTotal(curLevel);
+		xp += xpNext(curLevel) * curProgress;
+		
 		return xp;
 	}
 }
