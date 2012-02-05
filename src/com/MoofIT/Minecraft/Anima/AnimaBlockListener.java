@@ -25,7 +25,7 @@ public class AnimaBlockListener implements Listener {
 		}
 		Player player = event.getPlayer();
 		if (!player.hasPermission("anima.create")) {
-			player.sendMessage("[Anima] You do not have permission to create Anima signs.");
+			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
 			return;
 		}
 
@@ -57,7 +57,7 @@ public class AnimaBlockListener implements Listener {
 		if (name.length() > 15) name = name.substring(0, 15);
 
 		if (!sign.getLine(1).equalsIgnoreCase(name) && !player.hasPermission("anima.admin")) {
-			player.sendMessage("[Anima] You cannot break this Anima sign.");
+			plugin.sendMessage(player,"You cannot break this Anima sign.");
 
 			//org.bukkit.material.Sign signData = (org.bukkit.material.Sign)block.getState().getData();
 			event.setCancelled(true);
@@ -69,3 +69,5 @@ public class AnimaBlockListener implements Listener {
 		Anima.awardExperience(player, xp);
 	}
 }
+
+//TODO add breakage protection

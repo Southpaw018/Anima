@@ -8,7 +8,6 @@ website: http://www.moofit.com
 commands:
   anima:
     description: Main command for Anima
-    usage: /<command> <args>
 
 permissions:
   anima.use:

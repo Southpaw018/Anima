@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -127,7 +128,7 @@ public class Anima extends JavaPlugin {
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
 			if (args[0].equalsIgnoreCase("xp")) {
-				p.sendMessage("[Anima] You have " + p.getTotalExperience() + " XP.");
+				sendMessage(p,"You have " + p.getTotalExperience() + " XP.");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("levelxp")) {
@@ -137,7 +138,7 @@ public class Anima extends JavaPlugin {
 				} catch (NumberFormatException e) {
 					return false;
 				}
-				p.sendMessage("[Anima] The total XP required for level " + args[1] + " is " + xpLevelTotal(Integer.valueOf(args[1])) + ".");
+				sendMessage(p,"The total XP required for level " + args[1] + " is " + xpLevelTotal(Integer.valueOf(args[1])) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
@@ -146,16 +147,20 @@ public class Anima extends JavaPlugin {
 			}
 			if (args[0].equalsIgnoreCase("admin")) {
 				if (!p.hasPermission("anima.admin")) {
-					p.sendMessage("[Anima] You do not have permissions to use Anima admin commands.");
+					sendMessage(p,"You do not have permissions to use Anima admin commands.");
 					return true;
 				}
 				if (args[1].equalsIgnoreCase("reload")) {
 					loadConfig();
-					p.sendMessage("[Anima] Configuration reloaded from file.");
+					sendMessage(p,"Configuration reloaded from file.");
 				}
 			}
 		}
 		return true;
+	}
+
+	public void sendMessage(Player player, String message) {
+		player.sendMessage(ChatColor.BLUE + "[Anima] " + ChatColor.WHITE + message);
 	}
 
 	public long xpLevelTotal(int level) {
