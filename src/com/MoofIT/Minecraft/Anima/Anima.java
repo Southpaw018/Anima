@@ -31,7 +31,7 @@ public class Anima extends JavaPlugin {
 	public static Economy econ = null;
 
 	//Config defaults
-	public int maxXP = 4625; //4625 = level 50
+	public int maxXP = 4625;
 	public boolean versionCheck = true;
 
 	public double depositCost = 0;
@@ -74,7 +74,7 @@ public class Anima extends JavaPlugin {
 			log.warning("[Anima] Your config file is out of date! Delete your config and reload to see the new options. Proceeding using set options from config file and defaults for new options..." );
 		}
 
-		maxXP = config.getInt("Core.macLevel", maxXP);
+		maxXP = config.getInt("Core.maxXP", maxXP);
 		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
 
 		depositCost = config.getDouble("Economy.depositCost", depositCost);
@@ -131,7 +131,7 @@ public class Anima extends JavaPlugin {
 				} catch (NumberFormatException e) {
 					return false;
 				}
-				p.sendMessage("[Anima] The total XP required for level " + args[2] + " is " + xpTotal(Integer.valueOf(args[2])) + ".");
+				p.sendMessage("[Anima] The total XP required for level " + args[1] + " is " + xpLevelTotal(Integer.valueOf(args[1])) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
@@ -148,28 +148,51 @@ public class Anima extends JavaPlugin {
 					p.sendMessage("[Anima] Configuration reloaded from file.");
 				}
 				if (args[1].equalsIgnoreCase("check")) {
-					//args[2]: xp, levels
-					//args[3]: player
+					if (args.length != 4) return false;
+					Player player = getServer().getPlayer(args[2]); 
+					if (player == null) {
+						p.sendMessage("[Anima] Could not find " + args[2] + ".");
+						return true;
+					}
+					p.sendMessage("[Anima] " + player.getName() + " is level " + player.getLevel() + ".");
 				}
 				if (args[1].equalsIgnoreCase("give")) {
-					//args[2]: xp, levels
-					//args[3]: player
-					//args[4]: #
-				}
-				if (args[1].equalsIgnoreCase("take")) {
-					//TODO implementation
+					if (args.length != 4) return false;
+					Player player = getServer().getPlayer(args[2]); 
+					if (player == null) {
+						p.sendMessage("[Anima] Could not find " + args[2] + ".");
+						return true;
+					}
+					int amount = 0;
+					try {
+						Integer.parseInt(args[3]);
+					} catch (NumberFormatException e) {
+						return false;
+					}
+					player.setLevel(player.getLevel() + amount);
 				}
 				if (args[1].equalsIgnoreCase("set")) {
-					//TODO implementation
+					if (args.length != 4) return false;
+					Player player = getServer().getPlayer(args[2]); 
+					if (player == null) {
+						p.sendMessage("[Anima] Could not find " + args[2] + ".");
+						return true;
+					}
+					int amount = 0;
+					try {
+						Integer.parseInt(args[3]);
+					} catch (NumberFormatException e) {
+						return false;
+					}
+					player.setLevel(amount);
 				}
 			}
 		}
 		return false;
 	}
 
-	//Utility functions
-	public int xpTotal(int level) {
-		int xp = 0;
+	public long xpLevelTotal(int level) {
+		long xp = 0;
 
 		for (int x = 0; x < level; x++) {
 			xp += 7 + Math.floor(x * 3.5);
@@ -177,18 +200,24 @@ public class Anima extends JavaPlugin {
 
 		return xp;
 	}
-	public double xpNext(int level) {
-		return 7 + Math.floor(level * 3.5);
+	//Holy shit, major salute to desht for figuring this insanity out.
+	public void awardExperience(Player player, int xp) {
+		player.giveExp(xp);
+		 
+		int newXp = player.getTotalExperience();
+		int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
+		player.setLevel(newLevel);
+		int xpForThisLevel = xpNeeded(newLevel);
+		float neededForThisLevel = xpNeeded(newLevel + 1) - xpForThisLevel;
+		float distanceThru = player.getTotalExperience() - xpForThisLevel;
+		player.setExp(distanceThru / neededForThisLevel);
 	}
-	public int totalPlayerXP(Player player) {
-		int xp = 0;
-
-		int curLevel = player.getLevel();
-		float curProgress = player.getExp();
-
-		xp += xpTotal(curLevel);
-		xp += xpNext(curLevel) * curProgress;
-		
-		return xp;
+	 
+	private static int xpNeeded(int level) {
+		if (level <= 0) {
+			return 0;
+			} else {
+			return (int)(3.5 * level * (level + 1));
+		}
 	}
 }

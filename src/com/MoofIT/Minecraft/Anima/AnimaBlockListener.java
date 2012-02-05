@@ -20,7 +20,6 @@ public class AnimaBlockListener implements Listener {
 
 	@EventHandler
 	public void signChangeEvent(SignChangeEvent event) {
-		Anima.log.info("[Anima][DEBUG] onBlockPlace triggered");
 		if (!event.getLine(0).equalsIgnoreCase("[Anima]")) {
 			return;
 		}
@@ -67,6 +66,6 @@ public class AnimaBlockListener implements Listener {
 		}
 
 		int xp = Integer.valueOf(sign.getLine(3));
-		player.giveExp(xp);
+		plugin.awardExperience(player, xp);
 	}
 }

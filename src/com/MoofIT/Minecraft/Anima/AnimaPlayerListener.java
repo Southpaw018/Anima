@@ -47,8 +47,8 @@ public class AnimaPlayerListener implements Listener {
 		int xp = Integer.valueOf(sign.getLine(2));
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (plugin.totalPlayerXP(player) < 1) {
-				player.sendMessage("[Anima] You have no XP to deposit.");
+			if (player.getTotalExperience() < 2) {
+				player.sendMessage("[Anima] You cannot deposit your last XP orb.");
 				return;
 			}
 
@@ -57,7 +57,8 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			//TODO economy
-			player.giveExp(-1);
+			plugin.awardExperience(player, -1);
+			
 			sign.setLine(2, Integer.toString(xp + 1));
 			sign.setLine(3, "Updating...");
 			
@@ -74,7 +75,7 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			//TODO economy
-			player.giveExp(1);
+			plugin.awardExperience(player, 1);
 			sign.setLine(2, Integer.toString(xp - 1));
 			sign.setLine(3, "Updating...");
 
@@ -84,6 +85,6 @@ public class AnimaPlayerListener implements Listener {
 					sign.update();
 				}
 			});
-		}		
+		}
 	}
 }
