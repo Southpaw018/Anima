@@ -31,6 +31,7 @@ public class Anima extends JavaPlugin {
 	public static Economy econ = null;
 
 	//Config defaults
+	public int storageAmount = 25;
 	public int maxXP = 4625;
 	public boolean versionCheck = true;
 
@@ -74,6 +75,7 @@ public class Anima extends JavaPlugin {
 			log.warning("[Anima] Your config file is out of date! Delete your config and reload to see the new options. Proceeding using set options from config file and defaults for new options..." );
 		}
 
+		storageAmount = Math.max(config.getInt("Core.storageAmount", storageAmount),1);
 		maxXP = config.getInt("Core.maxXP", maxXP);
 		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
 
