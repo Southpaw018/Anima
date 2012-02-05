@@ -124,7 +124,7 @@ public class Anima extends JavaPlugin {
 		String cmd = command.getName();
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
-			if (args[0].equalsIgnoreCase("totalxp")) {
+			if (args[0].equalsIgnoreCase("levelxp")) {
 				if (args.length != 2) return false;
 				try {
 					Integer.parseInt(args[1]);
@@ -146,45 +146,6 @@ public class Anima extends JavaPlugin {
 				if (args[1].equalsIgnoreCase("reload")) {
 					loadConfig();
 					p.sendMessage("[Anima] Configuration reloaded from file.");
-				}
-				if (args[1].equalsIgnoreCase("check")) {
-					if (args.length != 4) return false;
-					Player player = getServer().getPlayer(args[2]); 
-					if (player == null) {
-						p.sendMessage("[Anima] Could not find " + args[2] + ".");
-						return true;
-					}
-					p.sendMessage("[Anima] " + player.getName() + " is level " + player.getLevel() + ".");
-				}
-				if (args[1].equalsIgnoreCase("give")) {
-					if (args.length != 4) return false;
-					Player player = getServer().getPlayer(args[2]); 
-					if (player == null) {
-						p.sendMessage("[Anima] Could not find " + args[2] + ".");
-						return true;
-					}
-					int amount = 0;
-					try {
-						Integer.parseInt(args[3]);
-					} catch (NumberFormatException e) {
-						return false;
-					}
-					player.setLevel(player.getLevel() + amount);
-				}
-				if (args[1].equalsIgnoreCase("set")) {
-					if (args.length != 4) return false;
-					Player player = getServer().getPlayer(args[2]); 
-					if (player == null) {
-						p.sendMessage("[Anima] Could not find " + args[2] + ".");
-						return true;
-					}
-					int amount = 0;
-					try {
-						Integer.parseInt(args[3]);
-					} catch (NumberFormatException e) {
-						return false;
-					}
-					player.setLevel(amount);
 				}
 			}
 		}

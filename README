@@ -23,25 +23,25 @@ Admin commands to give XP, take XP, give levels, and take levels
 anima.use: This player/group can use Anima signs. Default everyone.
 anima.create: This player/group can create Anima signs. Default everyone.
 anima.maxbypass: This player/group can bypass the XP storage limit. Default no one.
-anima.admin: Admins can physically destroy others' Anima signs and use the admin commands. Default op.
+anima.admin: Admins can physically destroy others' Anima signs. Default op.
 
 =============
  Commands
 =============
-User commands:
-  /anima totalxp <level>
+  /anima help
+    Displays a short how to.
+  /anima levelxp <level>
     Displays the total numerical XP required for the given level.
-
-Admin commands:
-  /anima admin check [xp|level] <player>
-    Check a player's total xp or current level.
-  /anima admin [give|take|set] [xp|level] <player> <#>
-    Allows admins to give, take, or set player xp or levels. 
 
 =============
  Config
 =============
 See default config file for options and instructions.
+
+=============
+ Credits
+=============
+Many thanks to desht for his awardExperience function. Both Minecraft's and Bukkit's XP handling is totally broken. A salute to you, sir!
 
 =============
  Changes

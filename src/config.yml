@@ -1,5 +1,5 @@
 Core:
-    #The maximum amount of XP a player can store in any one sign. 4625 is level 50.
+    #The maximum amount of XP a player can store in any one sign. 4625 is level 50. Use /anima levelxp <level> to get other values.
     maxXP: 4625
     #Check for new versions on startup
     versionCheck: true
