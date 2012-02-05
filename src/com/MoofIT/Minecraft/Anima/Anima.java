@@ -164,9 +164,9 @@ public class Anima extends JavaPlugin {
 		return xp;
 	}
 	//Holy shit, major salute to desht for figuring this insanity out.
-	public void awardExperience(Player player, int xp) {
+	public static void awardExperience(Player player, int xp) {
 		player.giveExp(xp);
-		 
+
 		int newXp = player.getTotalExperience();
 		int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
 		player.setLevel(newLevel);
@@ -175,7 +175,7 @@ public class Anima extends JavaPlugin {
 		float distanceThru = player.getTotalExperience() - xpForThisLevel;
 		player.setExp(distanceThru / neededForThisLevel);
 	}
-	 
+
 	private static int xpNeeded(int level) {
 		if (level <= 0) {
 			return 0;

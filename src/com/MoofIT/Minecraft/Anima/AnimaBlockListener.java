@@ -66,6 +66,6 @@ public class AnimaBlockListener implements Listener {
 		}
 
 		int xp = Integer.valueOf(sign.getLine(3));
-		plugin.awardExperience(player, xp);
+		Anima.awardExperience(player, xp);
 	}
 }

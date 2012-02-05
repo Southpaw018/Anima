@@ -57,9 +57,9 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			//TODO economy
-			plugin.awardExperience(player, -1);
+			Anima.awardExperience(player, -1 * plugin.storageAmount);
 			
-			sign.setLine(2, Integer.toString(xp + 1));
+			sign.setLine(2, Integer.toString(xp + plugin.storageAmount));
 			sign.setLine(3, "Updating...");
 			
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -75,8 +75,8 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			//TODO economy
-			plugin.awardExperience(player, 1);
-			sign.setLine(2, Integer.toString(xp - 1));
+			Anima.awardExperience(player, plugin.storageAmount);
+			sign.setLine(2, Integer.toString(xp - plugin.storageAmount));
 			sign.setLine(3, "Updating...");
 
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
