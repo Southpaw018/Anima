@@ -1,5 +1,6 @@
 package com.MoofIT.Minecraft.Anima;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -28,8 +29,10 @@ public class AnimaBlockListener implements Listener {
 			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
 			return;
 		}
+		//TODO add payment for placing sign
 
 		//no cheaters!
+		event.setLine(0, ChatColor.BLUE + "[Anima]");
 		event.setLine(1, "");
 		event.setLine(2, "");
 		event.setLine(3, "");
