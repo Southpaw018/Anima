@@ -97,7 +97,7 @@ public class Anima extends JavaPlugin {
 		String thisVersion = getDescription().getVersion();
 		URL url = null;
 		try {
-			url = new URL("http://www.moofit.com/minecraft/Anima.ver?v=" + thisVersion);
+			url = new URL("http://www.moofit.com/minecraft/anima.ver?v=" + thisVersion);
 			BufferedReader in = null;
 			in = new BufferedReader(new InputStreamReader(url.openStream()));
 			String newVersion = "";
