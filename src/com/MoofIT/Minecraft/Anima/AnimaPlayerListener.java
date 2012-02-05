@@ -47,8 +47,8 @@ public class AnimaPlayerListener implements Listener {
 		int xp = Integer.valueOf(sign.getLine(2));
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (player.getTotalExperience() < 2) {
-				player.sendMessage("[Anima] You cannot deposit your last XP orb.");
+			if (player.getTotalExperience() <= plugin.storageAmount) {
+				player.sendMessage("[Anima] You cannot deposit your last XP orbs.");
 				return;
 			}
 
