@@ -167,14 +167,4 @@ public class Anima extends JavaPlugin {
 	public void sendMessage(Player player, String message) {
 		player.sendMessage(ChatColor.BLUE + "[Anima] " + ChatColor.WHITE + message);
 	}
-
-	/*public static int xpLevelTotal(int level) {
-		int xp = 0;
-
-		for (int x = 0; x < level; x++) {
-			xp += 7 + (level * 7 >> 1);
-		}
-
-		return xp;
-	}*/
 }
