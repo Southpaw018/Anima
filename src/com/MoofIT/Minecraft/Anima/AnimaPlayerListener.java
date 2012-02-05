@@ -48,7 +48,7 @@ public class AnimaPlayerListener implements Listener {
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (player.getTotalExperience() <= plugin.storageAmount) {
-				player.sendMessage("[Anima] You cannot deposit your last XP orbs.");
+				player.sendMessage("[Anima] You need " + plugin.storageAmount + " XP to make a deposit.");
 				return;
 			}
 
@@ -56,7 +56,16 @@ public class AnimaPlayerListener implements Listener {
 				player.sendMessage("[Anima] You cannot deposit more XP into this sign.");
 				return;
 			}
-			//TODO economy
+			if (Anima.econ != null) {
+				double cost = plugin.depositCost * plugin.storageAmount;
+				if (Anima.econ.has(name,cost)) {
+					player.sendMessage("[Anima] You need " + cost + "to make a deposit.");
+					return;
+				}
+				else {
+					Anima.econ.withdrawPlayer(name, cost);
+				}
+			}
 			Anima.awardExperience(player, -1 * plugin.storageAmount);
 			
 			sign.setLine(2, Integer.toString(xp + plugin.storageAmount));
@@ -74,7 +83,17 @@ public class AnimaPlayerListener implements Listener {
 				player.sendMessage("[Anima] This sign has an XP balance of 0. There's nothing to withdraw!");
 				return;
 			}
-			//TODO economy
+			if (Anima.econ != null) {
+				double cost = plugin.withdrawCost * plugin.storageAmount;
+				if (Anima.econ.has(name,cost)) {
+					player.sendMessage("[Anima] You need " + cost + "to make a withdrawal.");
+					return;
+				}
+				else {
+					Anima.econ.withdrawPlayer(name, cost);
+				}
+			}
+
 			Anima.awardExperience(player, plugin.storageAmount);
 			sign.setLine(2, Integer.toString(xp - plugin.storageAmount));
 			sign.setLine(3, "Updating...");

@@ -64,8 +64,8 @@ public class AnimaBlockListener implements Listener {
 			sign.update();
 			return;
 		}
-
-		int xp = Integer.valueOf(sign.getLine(3));
+		//TODO economy check
+		int xp = Integer.valueOf(sign.getLine(3)); //TODO this line errors.
 		Anima.awardExperience(player, xp);
 	}
 }

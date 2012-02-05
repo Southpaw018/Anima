@@ -7,7 +7,8 @@ Core:
     versionCheck: true
 
 Economy:
-    #The cost to deposit or withdraw 1 XP. 0 to disable, decimals supported.
+    #The cost to deposit or withdraw 1 XP. Note that this is multiplied by storageAmount, above, when making deposits and withdrawals.
+    #0 to disable, decimals supported.
     depositCost: 0
     withdrawCost: 0
 
