@@ -1,5 +1,6 @@
 package com.MoofIT.Minecraft.Anima;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -28,7 +29,7 @@ public class AnimaPlayerListener implements Listener {
 		signBlockState = block.getState();
 		final Sign sign = (Sign)signBlockState;
 
-		if (!sign.getLine(0).equalsIgnoreCase("[Anima]")) return;
+		if (!sign.getLine(0).equalsIgnoreCase(ChatColor.BLUE + "[Anima]")) return;
 
 		Player player = event.getPlayer();
 		if (sign.getLine(3).equalsIgnoreCase("Updating...")) {

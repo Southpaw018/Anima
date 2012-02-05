@@ -53,7 +53,7 @@ public class AnimaBlockListener implements Listener {
 		signBlockState = block.getState();
 		final Sign sign = (Sign)signBlockState;
 
-		if (!sign.getLine(0).equalsIgnoreCase("[Anima]")) return;
+		if (!sign.getLine(0).equalsIgnoreCase(ChatColor.BLUE + "[Anima]")) return;
 
 		Player player = event.getPlayer();
 		String name = player.getName();

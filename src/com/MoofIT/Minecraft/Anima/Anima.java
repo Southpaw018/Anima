@@ -142,7 +142,7 @@ public class Anima extends JavaPlugin {
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
-				//TODO help message
+				sendMessage(p,"Place a sign with the first line [Anima]. Left click to withdraw, right click to deposit.");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("admin")) {
