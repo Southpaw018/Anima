@@ -44,7 +44,6 @@ public class Anima extends JavaPlugin {
 	public void onEnable() {
 		log = Logger.getLogger("Minecraft");
 		pm = getServer().getPluginManager();
-		pdfFile = getDescription();
 
 		loadConfig();
 		setupEconomy();
@@ -53,7 +52,7 @@ public class Anima extends JavaPlugin {
 		pm.registerEvents(playerListener, this);
 		pm.registerEvents(blockListener,this);
 
-		log.info(pdfFile.getName() + " v." + pdfFile.getVersion() + " is enabled.");
+		log.info("Anima v." + getDescription().getVersion() + ": storing souls since 2012!");
 	}
 
 	public void onDisable() {
