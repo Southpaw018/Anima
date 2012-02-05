@@ -1,5 +1,7 @@
 package com.MoofIT.Minecraft.Anima;
 
+import me.desht.scrollingmenusign.util.ExperienceUtils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -68,7 +70,7 @@ public class AnimaPlayerListener implements Listener {
 					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
-			Anima.awardExperience(player, -1 * plugin.storageAmount);
+			ExperienceUtils.awardExperience(player, -1 * plugin.storageAmount);
 			
 			sign.setLine(2, Integer.toString(xp + plugin.storageAmount));
 			sign.setLine(3, "Updating...");
@@ -96,7 +98,7 @@ public class AnimaPlayerListener implements Listener {
 				}
 			}
 
-			Anima.awardExperience(player, plugin.storageAmount);
+			ExperienceUtils.awardExperience(player, plugin.storageAmount);
 			sign.setLine(2, Integer.toString(xp - plugin.storageAmount));
 			sign.setLine(3, "Updating...");
 

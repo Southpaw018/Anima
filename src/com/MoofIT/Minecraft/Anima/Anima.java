@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import me.desht.scrollingmenusign.util.ExperienceUtils;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
@@ -138,7 +139,11 @@ public class Anima extends JavaPlugin {
 				} catch (NumberFormatException e) {
 					return false;
 				}
-				sendMessage(p,"The total XP required for level " + args[1] + " is " + xpLevelTotal(Integer.valueOf(args[1])) + ".");
+				if (Integer.valueOf(args[1]) > 100) {
+					sendMessage(p,"This command will only return values up to level 100.");
+					return true;
+				}
+				sendMessage(p,"The total XP required for level " + args[1] + " is " + ExperienceUtils.experienceNeeded(Integer.valueOf(args[1])) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
@@ -163,43 +168,13 @@ public class Anima extends JavaPlugin {
 		player.sendMessage(ChatColor.BLUE + "[Anima] " + ChatColor.WHITE + message);
 	}
 
-	public static int xpLevelTotal(int level) {
+	/*public static int xpLevelTotal(int level) {
 		int xp = 0;
 
 		for (int x = 0; x < level; x++) {
-			//xp += 7 + Math.floor(x * 3.5);
 			xp += 7 + (level * 7 >> 1);
 		}
 
 		return xp;
-	}
-	public static int levelTotalXP(int xp) { //OH GOD IT'S SO UGLY MY EYES
-		int level = 0;
-
-		do {
-			level++;
-		} while (xpLevelTotal(level) < xp);
-
-		return level;
-	}
-	//Holy shit, major salute to desht for figuring this insanity out.
-	public static void awardExperience(Player player, int xp) {
-		player.giveExp(xp);
-
-		int newXp = player.getTotalExperience();
-		int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
-		player.setLevel(newLevel);
-		int xpForThisLevel = xpNeeded(newLevel);
-		float neededForThisLevel = xpNeeded(newLevel + 1) - xpForThisLevel;
-		float distanceThru = player.getTotalExperience() - xpForThisLevel;
-		player.setExp(distanceThru / neededForThisLevel);
-	}
-
-	private static int xpNeeded(int level) {
-		if (level <= 0) {
-			return 0;
-			} else {
-			return (int)(3.5 * level * (level + 1));
-		}
-	}
+	}*/
 }

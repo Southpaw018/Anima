@@ -1,5 +1,7 @@
 package com.MoofIT.Minecraft.Anima;
 
+import me.desht.scrollingmenusign.util.ExperienceUtils;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -69,7 +71,7 @@ public class AnimaBlockListener implements Listener {
 		}
 		//TODO economy check
 		int xp = Integer.valueOf(sign.getLine(2));
-		Anima.awardExperience(player, xp);
+		ExperienceUtils.awardExperience(player, xp);
 	}
 }
 
