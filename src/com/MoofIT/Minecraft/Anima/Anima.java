@@ -163,8 +163,8 @@ public class Anima extends JavaPlugin {
 		player.sendMessage(ChatColor.BLUE + "[Anima] " + ChatColor.WHITE + message);
 	}
 
-	public long xpLevelTotal(int level) {
-		long xp = 0;
+	public static int xpLevelTotal(int level) {
+		int xp = 0;
 
 		for (int x = 0; x < level; x++) {
 			xp += 7 + Math.floor(x * 3.5);
@@ -172,12 +172,22 @@ public class Anima extends JavaPlugin {
 
 		return xp;
 	}
+	public static int levelTotalXP(int xp) { //OH GOD IT'S SO UGLY MY EYES
+		int level = 0;
+
+		do {
+			level++;
+		} while (xpLevelTotal(level) < xp);
+
+		return level;
+	}
 	//Holy shit, major salute to desht for figuring this insanity out.
 	public static void awardExperience(Player player, int xp) {
 		player.giveExp(xp);
 
 		int newXp = player.getTotalExperience();
-		int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
+		//int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
+		int newLevel = levelTotalXP(newXp); 
 		player.setLevel(newLevel);
 		int xpForThisLevel = xpNeeded(newLevel);
 		float neededForThisLevel = xpNeeded(newLevel + 1) - xpForThisLevel;
@@ -189,7 +199,8 @@ public class Anima extends JavaPlugin {
 		if (level <= 0) {
 			return 0;
 			} else {
-			return (int)(3.5 * level * (level + 1));
+			//return (int)(3.5 * level * (level + 1));
+			return (int)(7 + Math.floor(level * 3.5));
 		}
 	}
 }
