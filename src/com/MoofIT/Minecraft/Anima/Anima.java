@@ -167,7 +167,8 @@ public class Anima extends JavaPlugin {
 		int xp = 0;
 
 		for (int x = 0; x < level; x++) {
-			xp += 7 + Math.floor(x * 3.5);
+			//xp += 7 + Math.floor(x * 3.5);
+			xp += 7 + (level * 7 >> 1);
 		}
 
 		return xp;
@@ -186,8 +187,7 @@ public class Anima extends JavaPlugin {
 		player.giveExp(xp);
 
 		int newXp = player.getTotalExperience();
-		//int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
-		int newLevel = levelTotalXP(newXp); 
+		int newLevel = (int) (Math.sqrt(newXp / 3.5 + 0.25) - 0.5);
 		player.setLevel(newLevel);
 		int xpForThisLevel = xpNeeded(newLevel);
 		float neededForThisLevel = xpNeeded(newLevel + 1) - xpForThisLevel;
@@ -199,8 +199,7 @@ public class Anima extends JavaPlugin {
 		if (level <= 0) {
 			return 0;
 			} else {
-			//return (int)(3.5 * level * (level + 1));
-			return (int)(7 + Math.floor(level * 3.5));
+			return (int)(3.5 * level * (level + 1));
 		}
 	}
 }
