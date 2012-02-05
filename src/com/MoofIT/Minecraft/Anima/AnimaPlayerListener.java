@@ -58,7 +58,7 @@ public class AnimaPlayerListener implements Listener {
 			}
 			//TODO economy
 			player.giveExp(-1);
-			sign.setLine(2, Float.toString(xp + 1));
+			sign.setLine(2, Integer.toString(xp + 1));
 			sign.setLine(3, "Updating...");
 			
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -75,7 +75,7 @@ public class AnimaPlayerListener implements Listener {
 			}
 			//TODO economy
 			player.giveExp(1);
-			sign.setLine(2, Float.toString(xp - 1));
+			sign.setLine(2, Integer.toString(xp - 1));
 			sign.setLine(3, "Updating...");
 
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
