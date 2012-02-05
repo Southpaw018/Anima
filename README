@@ -33,6 +33,8 @@ User commands:
     Displays the total numerical XP required for the given level.
 
 Admin commands:
+  /anima admin check [xp|level] <player>
+    Check a player's total xp or current level.
   /anima admin [give|take|set] [xp|levels] <player> <#>
     Allows admins to give, take, or set player xp or levels. 
 
