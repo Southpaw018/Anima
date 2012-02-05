@@ -47,7 +47,7 @@ public class AnimaPlayerListener implements Listener {
 		int xp = Integer.valueOf(sign.getLine(2));
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (player.getExp() < 1) {
+			if (plugin.totalPlayerXP(player) < 1) {
 				player.sendMessage("[Anima] You have no XP to deposit.");
 				return;
 			}
@@ -69,6 +69,10 @@ public class AnimaPlayerListener implements Listener {
 			});
 		}
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
+			if (xp < 1) {
+				player.sendMessage("[Anima] This sign has an XP balance of 0. There's nothing to withdraw!");
+				return;
+			}
 			//TODO economy
 			player.giveExp(1);
 			sign.setLine(2, Float.toString(xp - 1));
