@@ -32,6 +32,8 @@ anima.admin: Admins can physically destroy others' Anima signs. Default op.
     Displays a short how to.
   /anima levelxp <level>
     Displays the total numerical XP required for the given level.
+  /anima xp
+    Displays your current total numerical XP.
 
 =============
  Config

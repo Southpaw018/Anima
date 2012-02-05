@@ -9,7 +9,6 @@ commands:
   anima:
     description: Main command for Anima
     usage: /<command> <args>
-    aliases: [ani]
 
 permissions:
   anima.use:

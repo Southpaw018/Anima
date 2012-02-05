@@ -56,14 +56,15 @@ public class AnimaPlayerListener implements Listener {
 				player.sendMessage("[Anima] You cannot deposit more XP into this sign.");
 				return;
 			}
-			if (Anima.econ != null) {
-				double cost = plugin.depositCost * plugin.storageAmount;
-				if (Anima.econ.has(name,cost)) {
-					player.sendMessage("[Anima] You need " + cost + "to make a deposit.");
+			double cost = plugin.depositCost * plugin.storageAmount;
+			if (Anima.econ != null && cost > 0) {
+				if (Anima.econ.getBalance(name) < cost) {
+					player.sendMessage("[Anima] You need " + Anima.econ.format(cost) + " to make a deposit.");
 					return;
 				}
 				else {
 					Anima.econ.withdrawPlayer(name, cost);
+					player.sendMessage("[Anima] " + Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
 			Anima.awardExperience(player, -1 * plugin.storageAmount);
@@ -79,18 +80,18 @@ public class AnimaPlayerListener implements Listener {
 			});
 		}
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			if (xp < 1) {
-				player.sendMessage("[Anima] This sign has an XP balance of 0. There's nothing to withdraw!");
+			if (xp < plugin.storageAmount) {
 				return;
 			}
-			if (Anima.econ != null) {
-				double cost = plugin.withdrawCost * plugin.storageAmount;
-				if (Anima.econ.has(name,cost)) {
-					player.sendMessage("[Anima] You need " + cost + "to make a withdrawal.");
+			double cost = plugin.withdrawCost * plugin.storageAmount;
+			if (Anima.econ != null && cost > 0) {
+				if (Anima.econ.getBalance(name) < cost) {
+					player.sendMessage("[Anima] You need " + Anima.econ.format(cost) + " to make a withdrawal.");
 					return;
 				}
 				else {
 					Anima.econ.withdrawPlayer(name, cost);
+					player.sendMessage("[Anima] " + Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
 

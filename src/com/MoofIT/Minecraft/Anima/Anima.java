@@ -126,6 +126,10 @@ public class Anima extends JavaPlugin {
 		String cmd = command.getName();
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
+			if (args[0].equalsIgnoreCase("xp")) {
+				p.sendMessage("[Anima] You have " + p.getTotalExperience() + " XP.");
+				return true;
+			}
 			if (args[0].equalsIgnoreCase("levelxp")) {
 				if (args.length != 2) return false;
 				try {
@@ -151,7 +155,7 @@ public class Anima extends JavaPlugin {
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public long xpLevelTotal(int level) {
