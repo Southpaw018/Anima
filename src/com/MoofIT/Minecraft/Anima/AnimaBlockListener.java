@@ -19,17 +19,11 @@ public class AnimaBlockListener implements Listener {
 	}
 
 	@EventHandler
-	public void onSignChange(SignChangeEvent event) {
-		Block block = event.getBlock();
-
-		if (block.getType() != Material.WALL_SIGN && block.getType() != Material.SIGN_POST) return;
-
-		BlockState signBlockState = null;
-		signBlockState = block.getState();
-		final Sign sign = (Sign)signBlockState;
-
-		if (!sign.getLine(0).equalsIgnoreCase("[Anima]")) return;
-
+	public void signChangeEvent(SignChangeEvent event) {
+		Anima.log.info("[Anima][DEBUG] onBlockPlace triggered");
+		if (!event.getLine(0).equalsIgnoreCase("[Anima]")) {
+			return;
+		}
 		Player player = event.getPlayer();
 		if (!player.hasPermission("anima.create")) {
 			player.sendMessage("[Anima] You do not have permission to create Anima signs.");
@@ -37,14 +31,14 @@ public class AnimaBlockListener implements Listener {
 		}
 
 		//no cheaters!
-		sign.setLine(1, "");
-		sign.setLine(2, "");
-		sign.setLine(3, "");
+		event.setLine(1, "");
+		event.setLine(2, "");
+		event.setLine(3, "");
 
 		String name = player.getName();
 		if (name.length() > 15) name = name.substring(0, 15);
-		sign.setLine(1,name);
-		sign.setLine(2, "0");
+		event.setLine(1,name);
+		event.setLine(2, "0");
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
