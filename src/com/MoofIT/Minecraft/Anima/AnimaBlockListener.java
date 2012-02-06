@@ -31,7 +31,16 @@ public class AnimaBlockListener implements Listener {
 			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
 			return;
 		}
-		//TODO add payment for placing sign
+		if (Anima.econ != null && plugin.signCost > 0) {
+			if (Anima.econ.getBalance(player.getName()) < plugin.signCost) {
+				plugin.sendMessage(player,"You need " + Anima.econ.format(plugin.signCost) + " for an Anima sign.");
+				return;
+			}
+			else {
+				Anima.econ.withdrawPlayer(player.getName(), plugin.signCost);
+				plugin.sendMessage(player,Anima.econ.format(plugin.signCost) + " has been withdrawn from your account.");
+			}
+		}
 
 		//no cheaters!
 		event.setLine(0, ChatColor.BLUE + "[Anima]");

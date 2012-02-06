@@ -23,6 +23,7 @@ Admin commands to give XP, take XP, give levels, and take levels
 anima.use: This player/group can use Anima signs. Default everyone.
 anima.create: This player/group can create Anima signs. Default everyone.
 anima.maxbypass: This player/group can bypass the XP storage limit. Default no one.
+anima.free: This player/group will not be charged for signs, deposits, or withdrawals. Default no one.
 anima.admin: Admins can physically destroy others' Anima signs. Default op.
 
 =============

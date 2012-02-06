@@ -7,8 +7,10 @@ Core:
     versionCheck: true
 
 Economy:
+    #The cost to create an Anima sign. 0 to disable, decimals allowed.
+    signCost: 0
     #The cost to deposit or withdraw 1 XP. Note that this is multiplied by storageAmount, above, when making deposits and withdrawals.
-    #0 to disable, decimals supported.
+    #0 to disable, decimals allowed.
     depositCost: 0
     withdrawCost: 0
 

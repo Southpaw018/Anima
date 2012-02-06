@@ -19,6 +19,9 @@ permissions:
   anima.maxbypass:
     description: This player/group can bypass the XP storage limit.
     default: false
+  anima.free:
+    description: This player/group will not be charged for signs, deposits, or withdrawals.
+    default: false
 
   anima.admin:
     description: Admins can physically destroy others' Anima signs and use the admin commands.

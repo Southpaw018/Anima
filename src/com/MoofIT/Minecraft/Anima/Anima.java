@@ -37,6 +37,7 @@ public class Anima extends JavaPlugin {
 	public int maxXP = 4625;
 	public boolean versionCheck = true;
 
+	public double signCost = 0;
 	public double depositCost = 0;
 	public double withdrawCost = 0;
 
@@ -81,6 +82,7 @@ public class Anima extends JavaPlugin {
 		maxXP = config.getInt("Core.maxXP", maxXP);
 		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
 
+		signCost = config.getDouble("Economy.signCost", signCost);
 		depositCost = config.getDouble("Economy.depositCost", depositCost);
 		withdrawCost = config.getDouble("Economy.withdrawCost", withdrawCost);
 	}
@@ -147,7 +149,10 @@ public class Anima extends JavaPlugin {
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
-				sendMessage(p,"Place a sign with the first line [Anima]. Left click to withdraw, right click to deposit.");
+				sendMessage(p,"Place a sign with the first line [Anima]. Left click to withdraw, right click to deposit. Break the sign to withdraw all XP.");
+				sendMessage(p, "You'll deposit and withdraw " + storageAmount + " XP at a time.");
+				if (signCost > 0) sendMessage(p, "It costs " + econ.format(signCost) + " for an Anima sign.");
+				if (withdrawCost > 0 || depositCost > 0) sendMessage(p, "Deposits cost " + econ.format(depositCost) + ". Withdrawals cost " + econ.format(withdrawCost) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("admin")) {
