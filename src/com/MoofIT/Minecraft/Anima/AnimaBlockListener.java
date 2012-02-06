@@ -78,10 +78,21 @@ public class AnimaBlockListener implements Listener {
 			sign.update();
 			return;
 		}
-		//TODO economy check
+
 		int xp = Integer.valueOf(sign.getLine(2));
+		double cost = plugin.withdrawCost * xp;
+		if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
+			if (Anima.econ.getBalance(name) < cost) {
+				plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to break this sign.");
+				event.setCancelled(true);
+				sign.update();
+				return;
+			}
+			else {
+				Anima.econ.withdrawPlayer(name, cost);
+				plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
+			}
+		}
 		ExperienceUtils.awardExperience(player, xp);
 	}
 }
-
-//TODO add explosion protection
