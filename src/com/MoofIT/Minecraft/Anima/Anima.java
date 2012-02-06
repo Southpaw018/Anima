@@ -24,6 +24,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Anima extends JavaPlugin {
 	private final AnimaPlayerListener playerListener = new AnimaPlayerListener(this);
 	private final AnimaBlockListener blockListener = new AnimaBlockListener(this);
+	private final AnimaEntityListener entityListener = new AnimaEntityListener(this);
 
 	public static Logger log;
 	public PluginManager pm;
@@ -55,6 +56,7 @@ public class Anima extends JavaPlugin {
 
 		pm.registerEvents(playerListener, this);
 		pm.registerEvents(blockListener,this);
+		pm.registerEvents(entityListener, this);
 
 		log.info("Anima v." + getDescription().getVersion() + ": storing souls since 2012!");
 	}
@@ -149,7 +151,7 @@ public class Anima extends JavaPlugin {
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
-				sendMessage(p,"Place a sign with the first line [Anima]. Left click to withdraw, right click to deposit. Break the sign to withdraw all XP.");
+				sendMessage(p,"Place a sign on a wall with the first line [Anima]. Left click to withdraw, right click to deposit. Break the sign to withdraw all XP.");
 				sendMessage(p, "You'll deposit and withdraw " + storageAmount + " XP at a time.");
 				if (signCost > 0) sendMessage(p, "It costs " + econ.format(signCost) + " for an Anima sign.");
 				if (withdrawCost > 0 || depositCost > 0) sendMessage(p, "Deposits cost " + econ.format(depositCost) + ". Withdrawals cost " + econ.format(withdrawCost) + ".");

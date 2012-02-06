@@ -23,9 +23,9 @@ public class AnimaBlockListener implements Listener {
 
 	@EventHandler
 	public void signChangeEvent(SignChangeEvent event) {
-		if (!event.getLine(0).equalsIgnoreCase("[Anima]")) {
-			return;
-		}
+		if (event.getBlock().getType() != Material.WALL_SIGN) return;
+		if (!event.getLine(0).equalsIgnoreCase("[Anima]")) return;
+
 		Player player = event.getPlayer();
 		if (!player.hasPermission("anima.create")) {
 			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
@@ -55,10 +55,10 @@ public class AnimaBlockListener implements Listener {
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onBlockBreak(BlockBreakEvent event) {
+	public void onBlockBreak(BlockBreakEvent event) { //TODO test break protection
 		Block block = event.getBlock();
 
-		if (block.getType() != Material.WALL_SIGN && block.getType() != Material.SIGN_POST) return;
+		if (block.getType() != Material.WALL_SIGN) return;
 
 		BlockState signBlockState = null;
 		signBlockState = block.getState();
@@ -84,4 +84,4 @@ public class AnimaBlockListener implements Listener {
 	}
 }
 
-//TODO add breakage protection
+//TODO add explosion protection

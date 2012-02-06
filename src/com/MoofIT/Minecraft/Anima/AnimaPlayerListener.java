@@ -25,7 +25,7 @@ public class AnimaPlayerListener implements Listener {
 	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (event.getAction() != Action.LEFT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		Block block = event.getClickedBlock();
-		if (block.getType() != Material.SIGN_POST && block.getType() != Material.WALL_SIGN) return;
+		if (block.getType() != Material.WALL_SIGN) return;
 
 		BlockState signBlockState = null;
 		signBlockState = block.getState();
