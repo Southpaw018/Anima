@@ -31,7 +31,7 @@ public class AnimaBlockListener implements Listener {
 			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
 			return;
 		}
-		if (Anima.econ != null && plugin.signCost > 0) {
+		if (Anima.econ != null && plugin.signCost > 0 && !player.hasPermission("anima.free")) {
 			if (Anima.econ.getBalance(player.getName()) < plugin.signCost) {
 				plugin.sendMessage(player,"You need " + Anima.econ.format(plugin.signCost) + " for an Anima sign.");
 				return;

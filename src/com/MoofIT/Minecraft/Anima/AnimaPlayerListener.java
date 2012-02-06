@@ -60,7 +60,7 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			double cost = plugin.depositCost * plugin.storageAmount;
-			if (Anima.econ != null && cost > 0) {
+			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 				if (Anima.econ.getBalance(name) < cost) {
 					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a deposit.");
 					return;
@@ -87,7 +87,7 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 			double cost = plugin.withdrawCost * plugin.storageAmount;
-			if (Anima.econ != null && cost > 0) {
+			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 				if (Anima.econ.getBalance(name) < cost) {
 					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a withdrawal.");
 					return;
