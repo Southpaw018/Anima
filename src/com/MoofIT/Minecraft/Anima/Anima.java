@@ -58,7 +58,7 @@ public class Anima extends JavaPlugin {
 		pm.registerEvents(blockListener,this);
 		pm.registerEvents(entityListener, this);
 
-		log.info("Anima v." + getDescription().getVersion() + ": storing souls since 2012!");
+		log.info("Anima " + getDescription().getVersion() + ": storing souls since 2012!");
 	}
 
 	public void onDisable() {
