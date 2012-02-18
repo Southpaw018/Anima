@@ -20,6 +20,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/*
+    + allow players to max sign. eg sign max is 4650, deposit is 25, depositing at 4640 deposits 10 TODO test
+    - allow players to set their own deposit rates TODO 1.0
+    + shift-click to deposit max? TODO test
+    - clean up command messaging (currently fails silently) TODO 1.0
+ */
 
 public class Anima extends JavaPlugin {
 	private final AnimaPlayerListener playerListener = new AnimaPlayerListener(this);

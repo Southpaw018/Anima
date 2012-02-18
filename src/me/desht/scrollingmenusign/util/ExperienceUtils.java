@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
  *
  */
 public class ExperienceUtils {
-	public static final int MAX_LEVEL_SUPPORTED = 100;
+	public static final int MAX_LEVEL_SUPPORTED = 101;
 
 	private static final int xpLookup[] = new int[MAX_LEVEL_SUPPORTED];
 	static {

@@ -47,19 +47,25 @@ public class AnimaPlayerListener implements Listener {
 		if (name.length() > 15) name = name.substring(0, 15);
 		if (!sign.getLine(1).equals(name)) return;
 
-		int xp = Integer.valueOf(sign.getLine(2));
+		int signXP = Integer.valueOf(sign.getLine(2));
+		int changeAmount = plugin.storageAmount;
 
+		//Depositing XP
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-			if (player.getTotalExperience() <= plugin.storageAmount) {
-				plugin.sendMessage(player,"You need " + plugin.storageAmount + " XP to make a deposit.");
-				return;
-			}
-
-			if (xp > plugin.maxXP && !player.hasPermission("anima.maxbypass")) {
+			if (signXP >= plugin.maxXP && !player.hasPermission("anima.maxbypass")) {
 				plugin.sendMessage(player,"You cannot deposit more XP into this sign.");
 				return;
 			}
-			double cost = plugin.depositCost * plugin.storageAmount;
+
+			if (player.isSneaking()) changeAmount = Math.max(plugin.storageAmount, player.getTotalExperience());
+			if (signXP + changeAmount > plugin.maxXP) changeAmount = plugin.maxXP - signXP;
+
+			if (player.getTotalExperience() < changeAmount) {
+				plugin.sendMessage(player,"You need " + changeAmount + " XP to make a deposit.");
+				return;
+			}
+
+			double cost = plugin.depositCost * changeAmount;
 			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 				if (Anima.econ.getBalance(name) < cost) {
 					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a deposit.");
@@ -70,9 +76,9 @@ public class AnimaPlayerListener implements Listener {
 					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
-			ExperienceUtils.awardExperience(player, -1 * plugin.storageAmount);
+			ExperienceUtils.awardExperience(player, -1 * changeAmount);
 			
-			sign.setLine(2, Integer.toString(xp + plugin.storageAmount));
+			sign.setLine(2, Integer.toString(signXP + changeAmount));
 			sign.setLine(3, "Updating...");
 			
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
@@ -82,11 +88,19 @@ public class AnimaPlayerListener implements Listener {
 				}
 			});
 		}
+
+		//Withdrawing XP
 		if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
-			if (xp < plugin.storageAmount) {
+			if (player.isSneaking()) changeAmount = Math.max(plugin.storageAmount, signXP);
+			if (signXP - changeAmount <= 0) changeAmount = signXP;
+
+			int levelMax = ExperienceUtils.MAX_LEVEL_SUPPORTED - 1;
+			if (player.getTotalExperience() + changeAmount > ExperienceUtils.experienceNeeded(levelMax)) {
+				plugin.sendMessage(player, "Anima can only raise you to level " + (levelMax  -1) + ".");
 				return;
 			}
-			double cost = plugin.withdrawCost * plugin.storageAmount;
+
+			double cost = plugin.withdrawCost * changeAmount;
 			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 				if (Anima.econ.getBalance(name) < cost) {
 					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a withdrawal.");
@@ -98,8 +112,8 @@ public class AnimaPlayerListener implements Listener {
 				}
 			}
 
-			ExperienceUtils.awardExperience(player, plugin.storageAmount);
-			sign.setLine(2, Integer.toString(xp - plugin.storageAmount));
+			ExperienceUtils.awardExperience(player, changeAmount);
+			sign.setLine(2, Integer.toString(signXP - changeAmount));
 			sign.setLine(3, "Updating...");
 
 			plugin.getServer().getScheduler().scheduleSyncDelayedTask(plugin, new Runnable() {
