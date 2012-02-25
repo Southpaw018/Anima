@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.logging.Logger;
 
 import net.milkbowl.vault.economy.Economy;
@@ -31,6 +32,7 @@ public class Anima extends JavaPlugin {
 	private final AnimaPlayerListener playerListener = new AnimaPlayerListener(this);
 	private final AnimaBlockListener blockListener = new AnimaBlockListener(this);
 	private final AnimaEntityListener entityListener = new AnimaEntityListener(this);
+	private final AnimaItemEnchantListener enchantListener = new AnimaItemEnchantListener(this);
 
 	public static Logger log;
 	public PluginManager pm;
@@ -38,6 +40,8 @@ public class Anima extends JavaPlugin {
 	private FileConfiguration config;
 
 	public static Economy econ = null;
+
+	public static HashSet<String> xpRecalcList = new HashSet<String>();
 
 	//Config defaults
 	public int storageAmount = 25;
@@ -63,6 +67,7 @@ public class Anima extends JavaPlugin {
 		pm.registerEvents(playerListener, this);
 		pm.registerEvents(blockListener,this);
 		pm.registerEvents(entityListener, this);
+		pm.registerEvents(enchantListener, this);
 
 		log.info("Anima " + getDescription().getVersion() + ": storing souls since 2012!");
 	}

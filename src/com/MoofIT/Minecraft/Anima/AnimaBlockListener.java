@@ -55,9 +55,10 @@ public class AnimaBlockListener implements Listener {
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH)
-	public void onBlockBreak(BlockBreakEvent event) { //TODO test break protection
+	public void onBlockBreak(BlockBreakEvent event) {
 		Block block = event.getBlock();
 
+		//TODO 1.0 check to see if block being broken has an anima sign attached
 		if (block.getType() != Material.WALL_SIGN) return;
 
 		BlockState signBlockState = null;
@@ -73,7 +74,6 @@ public class AnimaBlockListener implements Listener {
 		if (!sign.getLine(1).equalsIgnoreCase(name) && !player.hasPermission("anima.admin")) {
 			plugin.sendMessage(player,"You cannot break this Anima sign.");
 
-			//org.bukkit.material.Sign signData = (org.bukkit.material.Sign)block.getState().getData();
 			event.setCancelled(true);
 			sign.update();
 			return;
@@ -94,6 +94,12 @@ public class AnimaBlockListener implements Listener {
 			}
 		}
 		Editor expeditor = new Editor(player);
+		for (String recalcList : Anima.xpRecalcList) {
+			if (recalcList.equalsIgnoreCase(name)) {
+				expeditor.recalcTotalExp();
+				break;
+			}
+		}
 		expeditor.giveExp(xp);
 	}
 }

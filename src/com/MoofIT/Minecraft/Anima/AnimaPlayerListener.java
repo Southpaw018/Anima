@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class AnimaPlayerListener implements Listener {
 	private final Anima plugin;
@@ -51,6 +52,13 @@ public class AnimaPlayerListener implements Listener {
 		int changeAmount = plugin.storageAmount;
 
 		Editor expeditor = new Editor(player);
+		for (String recalcList : Anima.xpRecalcList) {
+			if (recalcList.equalsIgnoreCase(name)) {
+				expeditor.recalcTotalExp();
+				break;
+			}
+		}
+
 
 		//Depositing XP
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
@@ -125,5 +133,10 @@ public class AnimaPlayerListener implements Listener {
 				}
 			});
 		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerQuit(PlayerQuitEvent event) {
+		Anima.xpRecalcList.remove(event.getPlayer().getName());
 	}
 }

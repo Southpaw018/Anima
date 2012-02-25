@@ -5,9 +5,12 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class AnimaEntityListener implements Listener {
 	//private final Anima plugin;
@@ -31,7 +34,14 @@ public class AnimaEntityListener implements Listener {
 					continue;
 				}
 			}
-			//TODO do we also need to check if we're blowing up the block to which the sign is attached?
+			//TODO 1.0 also check if a block being blown up has an anima sign attached
 		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlayerDeath(PlayerDeathEvent event) {
+		if (!(event.getEntity() instanceof Player)) return;
+		Player p = (Player)event.getEntity();
+		Anima.xpRecalcList.remove(p.getName());
 	}
 }
