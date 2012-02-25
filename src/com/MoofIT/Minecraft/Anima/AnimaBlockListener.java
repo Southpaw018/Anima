@@ -1,6 +1,6 @@
 package com.MoofIT.Minecraft.Anima;
 
-import me.desht.scrollingmenusign.util.ExperienceUtils;
+import com.feildmaster.lib.expeditor.Editor;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -93,6 +93,7 @@ public class AnimaBlockListener implements Listener {
 				plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
 			}
 		}
-		ExperienceUtils.awardExperience(player, xp);
+		Editor expeditor = new Editor(player);
+		expeditor.giveExp(xp);
 	}
 }

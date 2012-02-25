@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-import me.desht.scrollingmenusign.util.ExperienceUtils;
 import net.milkbowl.vault.economy.Economy;
 
 import org.bukkit.ChatColor;
@@ -20,11 +19,12 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.feildmaster.lib.expeditor.Editor;
+
 /*
-    + allow players to max sign. eg sign max is 4650, deposit is 25, depositing at 4640 deposits 10 TODO test
     - allow players to set their own deposit rates TODO 1.0
-    + shift-click to deposit max? TODO test
     - clean up command messaging (currently fails silently) TODO 1.0
+    - when depositing max, limit to multiples of storageAmount TODO 1.0
  */
 
 public class Anima extends JavaPlugin {
@@ -138,6 +138,9 @@ public class Anima extends JavaPlugin {
 		String cmd = command.getName();
 		if (cmd.equalsIgnoreCase("anima")) {
 			if (args.length < 1) return false;
+
+			Editor expeditor = new Editor(p);
+
 			if (args[0].equalsIgnoreCase("xp")) {
 				sendMessage(p,"You have " + p.getTotalExperience() + " XP.");
 				return true;
@@ -153,7 +156,7 @@ public class Anima extends JavaPlugin {
 					sendMessage(p,"This command will only return values up to level 100.");
 					return true;
 				}
-				sendMessage(p,"The total XP required for level " + args[1] + " is " + ExperienceUtils.experienceNeeded(Integer.valueOf(args[1])) + ".");
+				sendMessage(p,"The total XP required for level " + args[1] + " is " + expeditor.getExpToLevel(Integer.valueOf(args[1])) + ".");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {

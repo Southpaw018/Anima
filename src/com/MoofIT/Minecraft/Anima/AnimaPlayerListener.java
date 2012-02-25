@@ -1,6 +1,6 @@
 package com.MoofIT.Minecraft.Anima;
 
-import me.desht.scrollingmenusign.util.ExperienceUtils;
+import com.feildmaster.lib.expeditor.Editor;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -50,6 +50,8 @@ public class AnimaPlayerListener implements Listener {
 		int signXP = Integer.valueOf(sign.getLine(2));
 		int changeAmount = plugin.storageAmount;
 
+		Editor expeditor = new Editor(player);
+
 		//Depositing XP
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if (signXP >= plugin.maxXP && !player.hasPermission("anima.maxbypass")) {
@@ -76,7 +78,7 @@ public class AnimaPlayerListener implements Listener {
 					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
-			ExperienceUtils.awardExperience(player, -1 * changeAmount);
+			expeditor.takeExp(changeAmount);
 			
 			sign.setLine(2, Integer.toString(signXP + changeAmount));
 			sign.setLine(3, "Updating...");
@@ -94,11 +96,11 @@ public class AnimaPlayerListener implements Listener {
 			if (player.isSneaking()) changeAmount = Math.max(plugin.storageAmount, signXP);
 			if (signXP - changeAmount <= 0) changeAmount = signXP;
 
-			int levelMax = ExperienceUtils.MAX_LEVEL_SUPPORTED - 1;
+			/*int levelMax = ExperienceUtils.MAX_LEVEL_SUPPORTED - 1;
 			if (player.getTotalExperience() + changeAmount > ExperienceUtils.experienceNeeded(levelMax)) {
 				plugin.sendMessage(player, "Anima can only raise you to level " + (levelMax  -1) + ".");
 				return;
-			}
+			}*/
 
 			double cost = plugin.withdrawCost * changeAmount;
 			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
@@ -112,7 +114,7 @@ public class AnimaPlayerListener implements Listener {
 				}
 			}
 
-			ExperienceUtils.awardExperience(player, changeAmount);
+			expeditor.giveExp(changeAmount);
 			sign.setLine(2, Integer.toString(signXP - changeAmount));
 			sign.setLine(3, "Updating...");
 
