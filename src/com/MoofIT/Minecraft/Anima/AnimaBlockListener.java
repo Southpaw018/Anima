@@ -31,14 +31,14 @@ public class AnimaBlockListener implements Listener {
 			plugin.sendMessage(player,"You do not have permission to create Anima signs.");
 			return;
 		}
-		if (Anima.econ != null && plugin.signCost > 0 && !player.hasPermission("anima.free")) {
-			if (Anima.econ.getBalance(player.getName()) < plugin.signCost) {
-				plugin.sendMessage(player,"You need " + Anima.econ.format(plugin.signCost) + " for an Anima sign.");
+		if (Anima.econ != null && plugin.signCashCost > 0 && !player.hasPermission("anima.free")) {
+			if (Anima.econ.getBalance(player.getName()) < plugin.signCashCost) {
+				plugin.sendMessage(player,"You need " + Anima.econ.format(plugin.signCashCost) + " for an Anima sign.");
 				return;
 			}
 			else {
-				Anima.econ.withdrawPlayer(player.getName(), plugin.signCost);
-				plugin.sendMessage(player,Anima.econ.format(plugin.signCost) + " has been withdrawn from your account.");
+				Anima.econ.withdrawPlayer(player.getName(), plugin.signCashCost);
+				plugin.sendMessage(player,Anima.econ.format(plugin.signCashCost) + " has been withdrawn from your account.");
 			}
 		}
 
@@ -80,7 +80,7 @@ public class AnimaBlockListener implements Listener {
 		}
 
 		int xp = Integer.valueOf(sign.getLine(2));
-		double cost = plugin.withdrawCost * xp;
+		double cost = plugin.withdrawCashCost * xp;
 		if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 			if (Anima.econ.getBalance(name) < cost) {
 				plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to break this sign.");
