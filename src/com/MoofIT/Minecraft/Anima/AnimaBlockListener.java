@@ -41,6 +41,23 @@ public class AnimaBlockListener implements Listener {
 				plugin.sendMessage(player,Anima.econ.format(plugin.signCashCost) + " has been withdrawn from your account.");
 			}
 		}
+		if (plugin.signXPCost > 0 && !player.hasPermission("anima.free")) {
+			Editor expeditor = new Editor(player);
+			for (String recalcList : Anima.xpRecalcList) {
+				if (recalcList.equalsIgnoreCase(player.getName())) {
+					expeditor.recalcTotalExp();
+					break;
+				}
+			}
+			if (expeditor.getTotalExp() < plugin.signXPCost) {
+				plugin.sendMessage(player,"You need " + plugin.signXPCost + " XP for an Anima sign.");
+				return;
+			}
+			else {
+				expeditor.takeExp(plugin.signXPCost);
+				plugin.sendMessage(player,"You paid " + plugin.signXPCost + " XP for an Anima sign.");
+			}
+		}
 
 		//no cheaters!
 		event.setLine(0, ChatColor.BLUE + "[Anima]");
@@ -80,17 +97,18 @@ public class AnimaBlockListener implements Listener {
 		}
 
 		int xp = Integer.valueOf(sign.getLine(2));
-		double cost = plugin.withdrawCashCost * xp;
-		if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
-			if (Anima.econ.getBalance(name) < cost) {
-				plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to break this sign.");
+		double cashCost = plugin.withdrawCashCost * xp;
+		double xpCost = Math.ceil(plugin.withdrawXPCostPercent / 100 * xp);
+		if (Anima.econ != null && cashCost > 0 && !player.hasPermission("anima.free")) {
+			if (Anima.econ.getBalance(name) < cashCost) {
+				plugin.sendMessage(player,"You need " + Anima.econ.format(cashCost) + " to break this sign.");
 				event.setCancelled(true);
 				sign.update();
 				return;
 			}
 			else {
-				Anima.econ.withdrawPlayer(name, cost);
-				plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
+				Anima.econ.withdrawPlayer(name, cashCost);
+				plugin.sendMessage(player,Anima.econ.format(cashCost) + " has been withdrawn from your account.");
 			}
 		}
 		Editor expeditor = new Editor(player);
@@ -98,6 +116,18 @@ public class AnimaBlockListener implements Listener {
 			if (recalcList.equalsIgnoreCase(name)) {
 				expeditor.recalcTotalExp();
 				break;
+			}
+		}
+		if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
+			if (expeditor.getTotalExp() < xpCost) {
+				plugin.sendMessage(player,"You need " + xpCost + " XP to break this sign.");
+				event.setCancelled(true);
+				sign.update();
+				return;
+			}
+			else {
+				expeditor.takeExp((int)xpCost);
+				plugin.sendMessage(player, xpCost + "XP has been deducted from your balance.");
 			}
 		}
 		expeditor.giveExp(xp);

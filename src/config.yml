@@ -6,7 +6,7 @@ Core:
     #Check for new versions on startup
     versionCheck: true
 
-Economy:
+CashEconomy:
     #The cost to create an Anima sign. 0 to disable, decimals allowed.
     signCashCost: 0
     #The cost to deposit or withdraw 1 XP. Note that this is multiplied by storageAmount, above, when making deposits and withdrawals.
@@ -14,14 +14,14 @@ Economy:
     depositCashCost: 0
     withdrawCashCost: 0
 
-XPCosts:
+XPEconomy:
     #The cost in XP to create an Anima sign. 0 to disable, integers only.
     signXPCost: 0
     #The cost to deposit or withdraw XP as a percentage of the deposited or withdrawn amount.
     #For example, entering 1 for depositXPCost will result in the player paying 1 XP for depositing 100 XP or less.
     #IMPORTANT: Deposit costs are always rounded up, so the minimum cost is 1 XP! 
     #0 to disable, decimals allowed.
-    depositXPCost: 0
-    withdrawXPCost: 0
+    depositXPCostPercent: 0
+    withdrawXPCostPercent: 0
 
 configVer: 2

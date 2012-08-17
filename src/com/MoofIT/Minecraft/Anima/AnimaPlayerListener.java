@@ -67,7 +67,7 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 
-			if (player.isSneaking()) changeAmount = Math.max(plugin.storageAmount, player.getTotalExperience());
+			if (player.isSneaking()) changeAmount = Math.max(plugin.storageAmount, player.getTotalExperience()); //TODO make this a multiple of changeAmount
 			if (signXP + changeAmount > plugin.maxXP) changeAmount = plugin.maxXP - signXP;
 
 			if (player.getTotalExperience() < changeAmount) {
@@ -75,15 +75,26 @@ public class AnimaPlayerListener implements Listener {
 				return;
 			}
 
-			double cost = plugin.depositCashCost * changeAmount;
-			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
-				if (Anima.econ.getBalance(name) < cost) {
-					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a deposit.");
+			double cashCost = plugin.depositCashCost * changeAmount;
+			double xpCost = Math.ceil(plugin.depositXPCostPercent / 100 * changeAmount);
+			if (Anima.econ != null && cashCost > 0 && !player.hasPermission("anima.free")) {
+				if (Anima.econ.getBalance(name) < cashCost) {
+					plugin.sendMessage(player,"You need " + Anima.econ.format(cashCost) + " to make a deposit.");
 					return;
 				}
 				else {
-					Anima.econ.withdrawPlayer(name, cost);
-					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
+					Anima.econ.withdrawPlayer(name, cashCost);
+					plugin.sendMessage(player,Anima.econ.format(cashCost) + " has been withdrawn from your account.");
+				}
+			}
+			if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
+				if (xpCost + changeAmount < expeditor.getTotalExp()) {
+					plugin.sendMessage(player,"You don't have enough XP to cover the fee for this deposit.");
+					return;
+				}
+				else {
+					expeditor.takeExp((int)xpCost);
+					plugin.sendMessage(player, xpCost + "XP has been deducted from your balance.");
 				}
 			}
 			expeditor.takeExp(changeAmount);
@@ -111,6 +122,7 @@ public class AnimaPlayerListener implements Listener {
 			}*/
 
 			double cost = plugin.withdrawCashCost * changeAmount;
+			double xpCost = Math.ceil(plugin.withdrawXPCostPercent / 100 * changeAmount);
 			if (Anima.econ != null && cost > 0 && !player.hasPermission("anima.free")) {
 				if (Anima.econ.getBalance(name) < cost) {
 					plugin.sendMessage(player,"You need " + Anima.econ.format(cost) + " to make a withdrawal.");
@@ -119,6 +131,16 @@ public class AnimaPlayerListener implements Listener {
 				else {
 					Anima.econ.withdrawPlayer(name, cost);
 					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
+				}
+			}
+			if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
+				if (xpCost + changeAmount < signXP) {
+					plugin.sendMessage(player,"You don't have enough XP to cover the fee for this withdrawal.");
+					return;
+				}
+				else {
+					expeditor.takeExp((int)xpCost);
+					plugin.sendMessage(player, xpCost + "XP has been deducted from your balance.");
 				}
 			}
 

@@ -52,6 +52,10 @@ public class Anima extends JavaPlugin {
 	public double depositCashCost = 0;
 	public double withdrawCashCost = 0;
 
+	public int signXPCost = 0;
+	public double depositXPCostPercent = 0;
+	public double withdrawXPCostPercent = 0;
+
 	//Config versioning
 	private int configVer = 0;
 	private final int configCurrent = 1;
@@ -95,9 +99,13 @@ public class Anima extends JavaPlugin {
 		maxXP = config.getInt("Core.maxXP", maxXP);
 		versionCheck = config.getBoolean("Core.versionCheck", versionCheck);
 
-		signCashCost = config.getDouble("Economy.signCashCost", signCashCost);
-		depositCashCost = config.getDouble("Economy.depositCashCost", depositCashCost);
-		withdrawCashCost = config.getDouble("Economy.withdrawCashCost", withdrawCashCost);
+		signCashCost = config.getDouble("CashEconomy.signCashCost", signCashCost);
+		depositCashCost = config.getDouble("CashEconomy.depositCashCost", depositCashCost);
+		withdrawCashCost = config.getDouble("CashEconomy.withdrawCashCost", withdrawCashCost);
+
+		signXPCost = config.getInt("XPEconomy.signXPCost", signXPCost);
+		depositXPCostPercent = config.getDouble("XPEconomy.depositXPCostPercent", depositXPCostPercent);
+		withdrawXPCostPercent = config.getDouble("XPEconomy.withdrawXPCostPercent", withdrawXPCostPercent);
 	}
 
 	 private boolean setupEconomy() {
@@ -167,7 +175,7 @@ public class Anima extends JavaPlugin {
 			if (args[0].equalsIgnoreCase("help")) {
 				sendMessage(p,"Place a sign on a wall with the first line [Anima]. Left click to withdraw, right click to deposit. Break the sign to withdraw all XP.");
 				sendMessage(p, "You'll deposit and withdraw " + storageAmount + " XP at a time.");
-				if (signCashCost > 0) sendMessage(p, "It costs " + econ.format(signCashCost) + " for an Anima sign.");
+				if (signCashCost > 0 || signXPCost > 0) sendMessage(p, "It costs " + econ.format(signCashCost) + " for an Anima sign."); //TODO potential unhandled error: admin sets cash cost or xp cost and has no econ will generate an error. Should convert to string builder style  
 				if (withdrawCashCost > 0 || depositCashCost > 0) sendMessage(p, "Deposits cost " + econ.format(depositCashCost) + ". Withdrawals cost " + econ.format(withdrawCashCost) + ".");
 				return true;
 			}
