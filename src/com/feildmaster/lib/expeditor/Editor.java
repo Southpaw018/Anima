@@ -71,7 +71,8 @@ public class Editor {
     }
 
     public int getExpToLevel(int i) {
-        return 7 + (i * 7 >> 1);
+        //return 7 + (i * 7 >> 1); //old val from MC1.5 and below, with level cap 50
+    	return i < 17 ? i * 17 : new Double(1.5 * Math.pow(i,2) - 29.5 * i + 360).intValue(); //TODO test
     }
 
     public void recalcTotalExp() {

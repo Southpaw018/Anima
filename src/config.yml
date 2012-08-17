@@ -1,8 +1,8 @@
 Core:
     #The amount of XP deposited and withdrawn at a time. Setting this to values under 10 may cause lag on large servers.
     storageAmount: 25
-    #The maximum amount of XP a player can store in any one sign. 4625 is level 50. Use /anima levelxp <level> to get other values.
-    maxXP: 4625
+    #The maximum amount of XP a player can store in any one sign. 825 is level 30. Use /anima levelxp <level> to get other values.
+    maxXP: 825
     #Check for new versions on startup
     versionCheck: true
 
