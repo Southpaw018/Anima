@@ -13,7 +13,8 @@ Source: https://github.com/Southpaw018/Anima
 Players can place a sign with the first line [Anima] to create a personal XP bank
 Punch (left click) the bank to withdraw, right click the bank to deposit
 Break the sign to take all of its XP
-Economy supported
+Economy supported via Vault
+Option to use XP-based fees instead of or in addition to money-based economies
 Utility command to calculate XP total for levels
 Admin commands to give XP, take XP, give levels, and take levels
 
@@ -44,7 +45,7 @@ See default config file for options and instructions.
 =============
  Credits
 =============
-Many thanks to desht for his awardExperience function. Both Minecraft's and Bukkit's XP handling is totally broken. A salute to you, sir!
+Many thanks to desht for his awardExperience function and feildmaster for his Expeditor class. Both Minecraft's and Bukkit's XP handling is totally broken. A salute to you, fine sirs!
 
 =============
  Changes

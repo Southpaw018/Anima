@@ -87,7 +87,7 @@ public class AnimaPlayerListener implements Listener {
 					plugin.sendMessage(player,Anima.econ.format(cashCost) + " has been withdrawn from your account.");
 				}
 			}
-			if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
+			/*if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
 				if (xpCost + changeAmount < expeditor.getTotalExp()) {
 					plugin.sendMessage(player,"You don't have enough XP to cover the fee for this deposit.");
 					return;
@@ -96,7 +96,7 @@ public class AnimaPlayerListener implements Listener {
 					expeditor.takeExp((int)xpCost);
 					plugin.sendMessage(player, xpCost + "XP has been deducted from your balance.");
 				}
-			}
+			}*/
 			expeditor.takeExp(changeAmount);
 			
 			sign.setLine(2, Integer.toString(signXP + changeAmount));
@@ -133,7 +133,7 @@ public class AnimaPlayerListener implements Listener {
 					plugin.sendMessage(player,Anima.econ.format(cost) + " has been withdrawn from your account.");
 				}
 			}
-			if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
+			/*if (xpCost > 0 && !player.hasPermission("anima.free")) { //TODO test
 				if (xpCost + changeAmount < signXP) {
 					plugin.sendMessage(player,"You don't have enough XP to cover the fee for this withdrawal.");
 					return;
@@ -142,7 +142,7 @@ public class AnimaPlayerListener implements Listener {
 					expeditor.takeExp((int)xpCost);
 					plugin.sendMessage(player, xpCost + "XP has been deducted from your balance.");
 				}
-			}
+			}*/
 
 			expeditor.giveExp(changeAmount);
 			sign.setLine(2, Integer.toString(signXP - changeAmount));

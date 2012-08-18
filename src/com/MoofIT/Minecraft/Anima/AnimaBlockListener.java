@@ -54,7 +54,7 @@ public class AnimaBlockListener implements Listener {
 				return;
 			}
 			else {
-				expeditor.takeExp(plugin.signXPCost);
+				//expeditor.takeExp(plugin.signXPCost);
 				plugin.sendMessage(player,"You paid " + plugin.signXPCost + " XP for an Anima sign.");
 			}
 		}
